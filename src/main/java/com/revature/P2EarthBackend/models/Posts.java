@@ -12,16 +12,13 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "Posts")
+@Table(name = "posts")
 public class Posts {
 
     @Id
     @GeneratedValue
     @Column
     private Integer post_id;
-
-    @Column
-    private Integer user_id;
 
     @Column
     private Timestamp post_created;
@@ -31,6 +28,9 @@ public class Posts {
 
     @Column
     private String post_description;
+
+    @ManyToOne
+    private Users user;
 
 
 

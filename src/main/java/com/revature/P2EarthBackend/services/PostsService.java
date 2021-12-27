@@ -18,13 +18,16 @@ public class PostsService {
         return this.postsDao.findAll();
     }
 
+    public List<Posts> getAllUserPosts(Integer userId){
+        return this.postsDao.findAllByUserId(userId);
+    }
+
     public Posts getOnePost(Integer post_id){
         return this.postsDao.getById(post_id);
     }
 
     public Posts createPost(Posts post){
         return this.postsDao.save(post);
-
     }
 
     public Boolean deletePost(Integer post_id){

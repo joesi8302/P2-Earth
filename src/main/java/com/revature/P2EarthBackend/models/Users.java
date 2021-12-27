@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,5 +38,8 @@ public class Users {
 
     @Column
     private String user_email;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    List<Posts> posts = new ArrayList<>();
 
 }
