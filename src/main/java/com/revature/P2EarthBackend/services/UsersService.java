@@ -1,5 +1,6 @@
 package com.revature.P2EarthBackend.services;
 
+import com.revature.P2EarthBackend.models.LoginDTO;
 import com.revature.P2EarthBackend.models.Users;
 import com.revature.P2EarthBackend.repository.UsersDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,4 +31,19 @@ public class UsersService {
     public Boolean deleteUser(Integer user_id){
         return null;
     }
+    public Users loginUser(LoginDTO loginDTO) {
+
+
+        Users user=usersDao.findAllUsersbyUsername(loginDTO.getUsername());
+        if( user==null){
+            return null;
+        }else{
+            if(loginDTO.getPassword().equals(user.getPassword())){
+                return user;
+            }else{
+                return null;
+            }
+        }
+    }
+
 }
