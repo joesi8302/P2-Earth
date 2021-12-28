@@ -4,6 +4,7 @@ import com.revature.P2EarthBackend.models.LoginDTO;
 import com.revature.P2EarthBackend.models.Users;
 import com.revature.P2EarthBackend.repository.UsersDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.jasypt.util.password.BasicPasswordEncryptor;
 
 import java.util.List;
 
@@ -25,6 +26,12 @@ public class UsersService {
     }
 
     public Users createUser(Users user){
+
+        BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
+        String encryptedPassword = passwordEncryptor.encryptPassword(user.getPassword());
+
+        user.setPassword(encryptedPassword);
+
         return this.usersDao.save(user);
     }
 
@@ -33,12 +40,16 @@ public class UsersService {
     }
     public Users loginUser(LoginDTO loginDTO) {
 
-
         Users user=usersDao.findAllUsersbyUsername(loginDTO.getUsername());
+        BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
+
+        boolean passCheck = passwordEncryptor.checkPassword(loginDTO.getPassword(), user.getPassword());
+
+
         if( user==null){
             return null;
         }else{
-            if(loginDTO.getPassword().equals(user.getPassword())){
+            if(passCheck){
                 return user;
             }else{
                 return null;
