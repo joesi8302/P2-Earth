@@ -40,6 +40,6 @@ public class Users {
     private String user_email;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    List<Posts> posts = new ArrayList<>();
+    List<Posts> users = new ArrayList<>();
 
 }

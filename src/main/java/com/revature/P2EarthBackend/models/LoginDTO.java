@@ -9,13 +9,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class LoginDTO {
 
-
     private Integer user_id;
 
     private String username;
 
-    private String password;
-
-
+    private String response;
 
 }

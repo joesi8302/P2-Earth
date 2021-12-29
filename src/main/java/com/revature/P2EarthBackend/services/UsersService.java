@@ -27,34 +27,57 @@ public class UsersService {
 
     public Users createUser(Users user){
 
-        BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
-        String encryptedPassword = passwordEncryptor.encryptPassword(user.getPassword());
+        Users user1 = usersDao.findAllUsersbyUsername(user.getUsername());
 
-        user.setPassword(encryptedPassword);
+        if (user1 != null) { // if not null that means it finds something
 
-        return this.usersDao.save(user);
+            return null;
+        }else { //if null that means it didnt find a username and we can add a username
+
+            BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
+            String encryptedPassword = passwordEncryptor.encryptPassword(user.getPassword());
+
+            user.setPassword(encryptedPassword);
+
+            return this.usersDao.save(user);
+
+        }
     }
 
     public Boolean deleteUser(Integer user_id){
         return null;
     }
-    public Users loginUser(LoginDTO loginDTO) {
+    public Users loginUser(Users users) {
 
-        Users user=usersDao.findAllUsersbyUsername(loginDTO.getUsername());
+        Users checkuser = usersDao.findAllUsersbyUsername(users.getUsername());
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
 
-        boolean passCheck = passwordEncryptor.checkPassword(loginDTO.getPassword(), user.getPassword());
+        boolean passCheck = passwordEncryptor.checkPassword(users.getPassword(), checkuser.getPassword());
 
 
-        if( user==null){
+        if(checkuser == null){
             return null;
         }else{
             if(passCheck){
-                return user;
+                return checkuser;
             }else{
                 return null;
             }
         }
     }
 
+    public Users updateUser(Users user) {
+
+        Users checkuser = usersDao.findAllUsersbyUsername(user.getUsername());
+
+        if(checkuser == null){
+            return null;
+        }else{
+            //set checkuser = user
+
+            return usersDao.updateUsersbyUsername(user.getUsername(), user.getPassword(), user.getUser_first_name(), user.getUser_last_name(), user.getUser_img(), user.getUser_email());
+        }
+
+
+    }
 }
