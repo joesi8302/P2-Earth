@@ -4,6 +4,7 @@ import com.revature.P2EarthBackend.models.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+
 import org.springframework.data.repository.query.Param;
 
 public interface UsersDao extends JpaRepository<Users, Integer> {
@@ -14,5 +15,7 @@ public interface UsersDao extends JpaRepository<Users, Integer> {
     @Modifying
     @Query("UPDATE Users SET username = :username, password = :password, user_first_name = :firstname, user_last_name = :lastname, user_img = :user_img, user_email = :email")
     Users updateUsersbyUsername(@Param("username") String username, @Param("password") String password, @Param("user_first_name") String firstname, @Param("user_last_name") String lastname, @Param("user_img") String user_img, @Param("user_email") String email);
+
+
 
 }
