@@ -4,9 +4,6 @@ package com.revature.P2EarthBackend.controllers;
 import com.revature.P2EarthBackend.models.LoginDTO;
 import com.revature.P2EarthBackend.models.Users;
 import com.revature.P2EarthBackend.services.UsersService;
-import jdk.jpackage.internal.Log;
-import lombok.var;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -64,5 +61,17 @@ public class UsersController {
     }
 
     //forgot password
+    @PutMapping
+    public ResponseEntity<Users> resetPassword(@RequestParam String email){
+        ResponseEntity<Users> responseEntity;
+        Users userfromDB = this.usersService.checkEmail(email);
 
+        if (userfromDB == null) {
+            responseEntity = ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }else {
+            responseEntity = ResponseEntity.status(HttpStatus.OK).body(userfromDB);
+        }
+
+        return responseEntity;
+    }
 }

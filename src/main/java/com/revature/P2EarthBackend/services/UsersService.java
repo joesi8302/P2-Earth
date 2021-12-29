@@ -70,14 +70,35 @@ public class UsersService {
 
         Users checkuser = usersDao.findAllUsersbyUsername(user.getUsername());
 
+        BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
+
         if(checkuser == null){
             return null;
         }else{
-            //set checkuser = user
+            //set checkuser = user --- idk if it works
 
-            return usersDao.updateUsersbyUsername(user.getUsername(), user.getPassword(), user.getUser_first_name(), user.getUser_last_name(), user.getUser_img(), user.getUser_email());
+            return usersDao.updateUsersbyUsername(user.getUsername(), passwordEncryptor.encryptPassword(user.getPassword()), user.getUser_first_name(), user.getUser_last_name(), user.getUser_img(), user.getUser_email());
         }
 
 
+    }
+
+    public Users checkEmail(String email) {
+
+        Users checkuser = usersDao.findAllUsersbyEmail(email);
+
+        if(checkuser == null){
+            return null;
+        }else{
+
+            //email the user with premade password here
+
+            checkuser.setPassword("P@ssW0Rd!");
+
+            updateUser(checkuser);
+
+        }
+
+        return checkuser;
     }
 }
