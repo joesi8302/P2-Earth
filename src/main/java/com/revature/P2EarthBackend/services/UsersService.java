@@ -5,9 +5,13 @@ import com.revature.P2EarthBackend.models.Users;
 import com.revature.P2EarthBackend.repository.UsersDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.jasypt.util.password.BasicPasswordEncryptor;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Service
+@Transactional
 public class UsersService {
 
     private UsersDao usersDao;
@@ -77,7 +81,8 @@ public class UsersService {
         }else{
             //set checkuser = user --- idk if it works
 
-            return usersDao.updateUsersbyUsername(user.getUsername(), passwordEncryptor.encryptPassword(user.getPassword()), user.getUser_first_name(), user.getUser_last_name(), user.getUser_img(), user.getUser_email());
+            Integer changed = usersDao.updateUsersbyUsername(user.getUsername(), passwordEncryptor.encryptPassword(user.getPassword()), user.getUser_first_name(), user.getUser_last_name(), user.getUser_img(), user.getUser_email());
+            return usersDao.findAllUsersbyUsername(user.getUsername());
         }
 
 

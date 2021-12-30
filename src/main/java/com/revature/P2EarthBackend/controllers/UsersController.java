@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "users")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -21,8 +23,20 @@ public class UsersController {
         this.usersService = usersService;
     }
 
-    @PostMapping
+
+    @GetMapping
+    public List<Users> getUsers(){
+        return usersService.getAllUsers();
+    }
+
+    @PostMapping("login")
     public LoginDTO loginDTO(@RequestBody Users requestBody){
+        return null;
+    }
+
+    @PostMapping
+    public LoginDTO createUser(@RequestBody Users requestBody){
+
         Users user = this.usersService.createUser(requestBody);
 
         if(user == null) {
@@ -30,11 +44,7 @@ public class UsersController {
         }
 
         return new LoginDTO(user.getUser_id(), user.getUsername(), "User created");
-    }
 
-    @PostMapping
-    public Users createUser(@RequestBody Users user){
-        return this.usersService.createUser(user);
     }
 
     @PutMapping
@@ -61,7 +71,7 @@ public class UsersController {
     }
 
     //forgot password
-    @PutMapping
+    @PutMapping("reset")
     public ResponseEntity<Users> resetPassword(@RequestParam String email){
         ResponseEntity<Users> responseEntity;
         Users userfromDB = this.usersService.checkEmail(email);

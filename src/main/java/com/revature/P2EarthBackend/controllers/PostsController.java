@@ -24,16 +24,18 @@ public class PostsController {
         return postsService.getAllPosts();
     }
 
-    @GetMapping
+    @GetMapping("{postId}")
     public Posts getOnePost(@PathVariable Integer postId){
         return postsService.getOnePost(postId);
     }
 
-    @GetMapping List<Posts> getAllUserPosts(@PathVariable Integer userId){
+    @GetMapping("user/{userId}")
+    List<Posts> getAllUserPosts(@PathVariable Integer userId){
         return postsService.getAllUserPosts(userId);
     }
 
-    @PutMapping Posts createPost(@RequestBody Posts post){
+    @PutMapping
+    Posts createPost(@RequestBody Posts post){
         return postsService.createPost(post);
     }
 

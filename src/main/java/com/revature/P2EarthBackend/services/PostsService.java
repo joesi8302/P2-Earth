@@ -3,9 +3,11 @@ package com.revature.P2EarthBackend.services;
 import com.revature.P2EarthBackend.models.Posts;
 import com.revature.P2EarthBackend.repository.PostsDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PostsService {
     private PostsDao postsDao;
 
