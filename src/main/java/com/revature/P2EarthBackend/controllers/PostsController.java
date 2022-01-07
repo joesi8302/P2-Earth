@@ -17,12 +17,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "posts")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 public class PostsController {
 
     private PostsService postsService;
@@ -126,7 +128,7 @@ public class PostsController {
 
 //deleted post_id parameter , it should autogenerate and autoencrement
     @PostMapping
-    public ResponseEntity<ResponseDTO> createPost( @RequestParam MultipartFile postImg, @RequestParam String description, HttpSession httpSession) throws IOException {
+    public ResponseEntity<ResponseDTO> createPost(@RequestParam MultipartFile postImg, @RequestParam String description, HttpSession httpSession) throws IOException {
 
         String post_description = description;
         String post_img = null;
@@ -145,7 +147,7 @@ public class PostsController {
             return responseEntity;
         }
 
-        String url = uploadService.uploadFile(postImg, objPost.getUser().getUsername() + objPost.getPost_id());
+        String url = uploadService.uploadMultiFile(postImg, objPost.getUser().getUsername() + objPost.getPost_id());
 
         Posts updatedPost = postsService.updatePostImg(objPost.getPost_id(), url);
         return ResponseEntity

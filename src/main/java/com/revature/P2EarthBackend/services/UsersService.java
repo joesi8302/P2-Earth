@@ -145,7 +145,7 @@ public class UsersService {
             user.setUser_id(checkuser.getUser_id());
             user.setPassword(encryptedPassword); //setting the new encrypted password in the object
 
-            String url = uploadService.uploadFile(user_img, user.getUsername() + "ProfileImg");
+            String url = uploadService.uploadMultiFile(user_img, user.getUsername() + "ProfileImg");
             user.setUser_img(url);
 
             System.out.println("DEBUG: user: " + user);
