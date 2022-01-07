@@ -23,10 +23,14 @@ public class PagedPostsService {
         this.pagedPostsDao = pagedPostsDao;
     }
 
-    public List<Posts> getAllPagedPosts(Integer pageNo, Integer pageSize){
-        Pageable paging = PageRequest.of(pageNo,pageSize);
+    public List<Posts> getAllPagedPosts(Integer pageNo){
+
+        Pageable paging = PageRequest.of(pageNo, 20);
 
         Page<Posts> postsList= this.pagedPostsDao.findAll(paging);
+
+        if (postsList == null) return null;
+
         return postsList.toList();
     }
 
