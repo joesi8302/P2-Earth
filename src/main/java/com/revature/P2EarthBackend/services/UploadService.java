@@ -18,8 +18,8 @@ import java.io.IOException;
 
 @Service
 public class UploadService {
-    private final String awsID = "";  //going to have to switch to environment variable when implementing
-    private final String secretKey = "";
+    private final String awsID = System.getenv("AWS_ID");  //going to have to switch to environment variable when implementing
+    private final String secretKey = System.getenv("AWS_SECRET_KEY");
     private final String region = "us-west-1";
     private final String bucketName = "hello-s3-js";
 
@@ -32,7 +32,20 @@ public class UploadService {
             .build();
 
 
-    public String uploadFile(MultipartFile file, String name) throws IOException {
+    public String uploadFile(File file, String name) throws IOException {
+        //bucket location, URI for the file in the location, file to send
+
+        ObjectMetadata data = new ObjectMetadata();
+//        data.setContentType(file.getContentType());
+//        data.setContentLength(file.getSize());
+
+        s3Client.putObject(bucketName, "project/" + name, file);
+        String fileType = file.getName().substring(file.getName().lastIndexOf(".") + 1);
+        String url = "https://hello-s3-js.s3.us-west-1.amazonaws.com/project/"+ name;
+        return url;
+    }
+
+    public String uploadMultiFile(MultipartFile file, String name) throws IOException {
         //bucket location, URI for the file in the location, file to send
 
         ObjectMetadata data = new ObjectMetadata();

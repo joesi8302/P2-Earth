@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "users")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 public class UsersController {
 
     private UsersService usersService;
@@ -94,7 +94,7 @@ public class UsersController {
         }
 
         //returns ok status code with user id and username passed back
-        String url = uploadService.uploadFile(user_img, username + "ProfileImg");
+        String url = uploadService.uploadMultiFile(user_img, username + "ProfileImg");
         userInput.setUser_img(url);
         Users user = this.usersService.createUser(userInput);
         return ResponseEntity.ok(new ResponseDTO(new LoginDTO(user.getUser_id(), user.getUsername()), "User created"));
