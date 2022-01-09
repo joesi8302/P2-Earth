@@ -159,10 +159,9 @@ public class UsersService {
     }
 
     public Users resetPassword(String email) {
-
+        System.out.println("FROM FRONT END: " + email);
         Users checkuser = usersDao.findAllUsersbyEmail(email);
-        System.out.println("SENT USER:"+ checkuser);
-        System.out.println(checkuser.getUser_email());
+
 
         if(checkuser.getUser_email() == null){
             return null;

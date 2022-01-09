@@ -134,7 +134,10 @@ public class UsersController {
     @PutMapping("reset")
     public ResponseEntity<ResponseDTO> resetPassword(@RequestParam String email){
         ResponseEntity<ResponseDTO> responseEntity;
-        Users userfromDB = this.usersService.resetPassword(email);
+        Integer length = email.length();
+        String newEmail = email.substring(1,length-1);
+        System.out.println(newEmail);
+        Users userfromDB = this.usersService.resetPassword(newEmail);
 
         if (userfromDB == null) {
             responseEntity = ResponseEntity
