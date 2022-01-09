@@ -22,4 +22,6 @@ public interface PostsDao extends JpaRepository<Posts, Integer> {
 
 
 
+
+
 }

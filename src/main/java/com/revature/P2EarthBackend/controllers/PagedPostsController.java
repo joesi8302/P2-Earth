@@ -33,8 +33,8 @@ public class PagedPostsController {
 
     }
 
-    @GetMapping("/{pageNo}")
-    public ResponseEntity<ResponseDTO> getAllPagedPosts(@PathVariable int pageNo) {
+    @GetMapping("/posts/{pageNo}")
+    public ResponseEntity<ResponseDTO> getAllPagedPosts(@PathVariable Integer pageNo) {
         List<Posts> listfromDB = pagedPostsService.getAllPagedPosts(pageNo);
 
         if (listfromDB == null) {
@@ -47,4 +47,20 @@ public class PagedPostsController {
                 .status(HttpStatus.OK)
                 .body(new ResponseDTO(listfromDB, "Successfully retrieved all paged posts"));
     }
+
+    @GetMapping("/posts/{pageNo}/{user_id}")
+    public ResponseEntity<ResponseDTO> getAllPagedPostsByUser(@PathVariable Integer pageNo, @PathVariable Integer user_id) {
+        List<Posts> listfromDB = pagedPostsService.getAllPagedPostsByUser(pageNo, user_id);
+
+        if (listfromDB == null) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new ResponseDTO(null, "Cannot fetch paged posts"));
+        }
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new ResponseDTO(listfromDB, "Successfully retrieved all paged posts"));
+    }
+
 }

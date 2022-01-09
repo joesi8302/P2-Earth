@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,6 +34,19 @@ public class PagedPostsService {
 
         return postsList.toList();
     }
+
+    public List<Posts> getAllPagedPostsByUser(Integer pageNo, Integer user_id, Integer pageSize){
+        Sort sort = Sort.by(Sort.by(), "user_user_id");
+        Pageable paging = PageRequest.of(pageNo, 20, sort );
+
+        Page<Posts> postsList= this.pagedPostsDao.findAll(paging);
+
+        if (postsList == null) return null;
+
+        return postsList.toList();
+    }
+
+
 
 
 

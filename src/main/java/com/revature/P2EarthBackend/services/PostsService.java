@@ -93,6 +93,28 @@ public class PostsService {
          this.postsDao.delete(post);
     }
 
+    public Integer getAllPostsTotal(){
+
+        List<Posts> postsList = this.postsDao.findAll();
+
+        if (postsList.isEmpty() || postsList == null) return null;
+
+        logger.info("get all posts "+ postsList);
+
+        return postsList.size();
+    }
+
+    public Integer getAllUserPostsTotal(Long userId){
+
+        List<Posts> postsList = this.postsDao.findAllByUserId(userId);
+
+        if (postsList.isEmpty() || postsList == null) return null;
+
+        logger.info("get all user posts" +postsList);
+
+        return postsList.size();
+    }
+
 
 }
 

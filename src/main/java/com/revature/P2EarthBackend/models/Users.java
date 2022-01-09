@@ -25,7 +25,7 @@ public class Users {
     @Column
     private Integer user_id;
 
-    @Column
+    @Column(unique = true)
     private String username;
 
     @Column
@@ -40,7 +40,7 @@ public class Users {
     @Column
     private String user_img;
 
-    @Column
+    @Column(unique = true)
     private String user_email;
 
 //    @JsonIgnoreProperties("user")

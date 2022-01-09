@@ -69,8 +69,9 @@ public class UsersService {
     public Users createUser(Users user){
 
         Users user1 = usersDao.findAllUsersbyUsername(user.getUsername());
+        Users user2 = usersDao.findAllUsersbyEmail(user.getUser_email());
 
-        if (user1 != null) { // if not null that means it finds something
+        if (user1 != null || user2 != null) { // if not null that means it finds something
 
             return null;
         }else { //if null that means it didnt find a username and we can add a username
