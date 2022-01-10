@@ -107,7 +107,10 @@ public class PostsController {
     //get all the posts by user_id
     // TODO: 1/2/2022 need to add a check , if returns null
     @GetMapping("user/{user_id}")
-    ResponseEntity<ResponseDTO> getAllUserPosts(@PathVariable Integer user_id){
+    ResponseEntity<ResponseDTO> getAllUserPosts(@PathVariable String username){
+
+        Users user = usersService.getOneUserByUsername(username);
+        Integer user_id = user.getUser_id();
 
         List<Posts> posts = postsService.getAllUserPosts(Long.valueOf(user_id));
 
