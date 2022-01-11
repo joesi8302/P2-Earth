@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -97,7 +96,7 @@ public class UsersController {
         String url = uploadService.uploadMultiFile(user_img, username + "ProfileImg");
         userInput.setUser_img(url);
         Users user = this.usersService.createUser(userInput);
-        return ResponseEntity.ok(new ResponseDTO(new LoginDTO(user.getUser_id(), user.getUsername()), "User created"));
+        return ResponseEntity.ok(new ResponseDTO(new LoginDTO(user.getUserId(), user.getUsername()), "User created"));
 
     }
 // I droped the user_id parameter here , I think when we create the user we dont need to provide the id , it should autoincreate and autogenerate ,

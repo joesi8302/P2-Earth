@@ -51,14 +51,13 @@ public class PostsService {
 
         if (post.getPost_id() == null) return null;
 
-        logger.info("get one post with post_id :"+post_id );
+        logger.info("get one post with post_id :" + post_id );
 
         return post;
 
     }
 
     public Posts createPost(Posts post){
-        //todo fix create post
 //        Users user = usersDao.findById(user_id).orElse(null);
 
 //        if (user == null) return null;

@@ -1,12 +1,9 @@
 package com.revature.P2EarthBackend.controllers;
 
 
-import com.revature.P2EarthBackend.models.LoginDTO;
 import com.revature.P2EarthBackend.models.Posts;
 import com.revature.P2EarthBackend.models.ResponseDTO;
 import com.revature.P2EarthBackend.models.Users;
-import com.revature.P2EarthBackend.repository.PostsDao;
-import com.revature.P2EarthBackend.repository.UsersDao;
 import com.revature.P2EarthBackend.services.PostsService;
 import com.revature.P2EarthBackend.services.UploadService;
 import com.revature.P2EarthBackend.services.UsersService;
@@ -17,9 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -110,7 +105,7 @@ public class PostsController {
     ResponseEntity<ResponseDTO> getAllUserPosts(@PathVariable String username){
 
         Users user = usersService.getOneUserByUsername(username);
-        Integer user_id = user.getUser_id();
+        Integer user_id = user.getUserId();
 
         List<Posts> posts = postsService.getAllUserPosts(Long.valueOf(user_id));
 
@@ -156,25 +151,6 @@ public class PostsController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(new ResponseDTO(objPost.toString(), "Successfully created post"));
-}
-
-
-    /*// TODO: 1/2/2022  //delete a post , need to add some checks , everyone can only delete their own posts , //not required
-    //  so we have to check the if( userid in session ==userid in post)
-    @DeleteMapping("delete/{post_id}")
-    public ResponseEntity<ResponseDTO> deletePost(@PathVariable Long post_id){
-
-        Posts post=this.postsService.getOnePost(post_id);
-
-        ResponseEntity<ResponseDTO> responseEntity;
-
-        this.postsService.deletePost(post);
-
-        responseEntity = ResponseEntity
-                .status(HttpStatus.OK)
-                .body(new ResponseDTO(null, "Successfully deleted post with id: " + post_id));
-    return responseEntity;
-
-    }*/
+    }
 
 }

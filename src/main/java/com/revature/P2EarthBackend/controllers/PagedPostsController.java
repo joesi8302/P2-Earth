@@ -50,7 +50,8 @@ public class PagedPostsController {
 
     @GetMapping("/{pageNo}/{user_id}")
     public ResponseEntity<ResponseDTO> getAllPagedPostsByUserId(@PathVariable Integer pageNo,@PathVariable Integer user_id){
-        List<Posts> listfromDB=pagedPostsService.getAllPagedPostsByUserId(pageNo,user_id);
+
+        List<Posts> listfromDB = pagedPostsService.getAllPagedPostsByUserId(pageNo, user_id);
 
         if (listfromDB == null) {
             return ResponseEntity

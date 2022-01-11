@@ -10,6 +10,6 @@ public class P2EarthBackendApplication {
 		SpringApplication.run(P2EarthBackendApplication.class, args);
 	}
 
-	//test update
+	//todo: make javaDocs for all methods
 
 }

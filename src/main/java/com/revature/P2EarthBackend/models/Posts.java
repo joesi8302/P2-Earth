@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @NoArgsConstructor
@@ -51,8 +50,6 @@ public class Posts {
     @JsonIgnore
     @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE)
     private List<Comments> comments=new ArrayList<>();
-
-
 
     public Long getPost_id() {
         return post_id;
@@ -101,7 +98,7 @@ public class Posts {
                 ", post_created=" + post_created +
                 ", post_img='" + post_img + '\'' +
                 ", post_description='" + post_description + '\'' +
-                ", user=" + user.getUser_id() +
+                ", user=" + user.getUserId() +
                 ", comments=" + comments +
                 '}';
     }
