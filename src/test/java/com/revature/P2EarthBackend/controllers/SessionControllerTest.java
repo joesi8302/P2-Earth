@@ -46,7 +46,7 @@ public class SessionControllerTest {
 
 
         System.out.println("this is user "+user1);
-        ResponseDTO expectedResult =new ResponseDTO(new LoginDTO(user1.getUser_id(), user1.getUsername()), "login successful");
+        ResponseDTO expectedResult =new ResponseDTO(new LoginDTO(user1.getUserId(), user1.getUsername()), "login successful");
         System.out.println("this is expected result"+ expectedResult);
 
                 Mockito.when(this.usersService.loginUser(loginInfo))
@@ -59,7 +59,7 @@ public class SessionControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(new ObjectMapper().writeValueAsString(expectedResult)));
 
-        Mockito.verify(this.session,Mockito.times(1)).setAttribute("user-session", user1.getUser_id());
+        Mockito.verify(this.session,Mockito.times(1)).setAttribute("user-session", user1.getUserId());
 
 
 //

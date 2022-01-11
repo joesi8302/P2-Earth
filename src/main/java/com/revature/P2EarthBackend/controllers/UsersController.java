@@ -92,6 +92,12 @@ public class UsersController {
                     .body(new ResponseDTO(null, "This username already exists please try a different one"));
         }
 
+        if (!usersService.isEmailUnique(user_email)) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new ResponseDTO(null, "This email is already registered"));
+        }
+
         //returns ok status code with user id and username passed back
         String url = uploadService.uploadMultiFile(user_img, username + "ProfileImg");
         userInput.setUser_img(url);
@@ -117,10 +123,21 @@ public class UsersController {
         Users userfromDB = this.usersService.updateUser(user, user_img);
 
         if (userfromDB == null) {
-
             return ResponseEntity.
-                    status(HttpStatus.NO_CONTENT)
+                    status(HttpStatus.BAD_REQUEST)
                     .body(new ResponseDTO(null, "Cannot find user in database"));
+        }
+
+        if (userfromDB.getUser_img().equals("-1")) {
+            return ResponseEntity.
+                    status(HttpStatus.BAD_REQUEST)
+                    .body(new ResponseDTO(null, "Username is already taken"));
+        }
+
+        if (userfromDB.getUser_img().equals("-2")) {
+            return ResponseEntity.
+                    status(HttpStatus.BAD_REQUEST)
+                    .body(new ResponseDTO(null, "Email is already registered"));
         }
 
         return ResponseEntity
@@ -140,7 +157,7 @@ public class UsersController {
 
         if (userfromDB == null) {
             responseEntity = ResponseEntity
-                    .status(HttpStatus.NO_CONTENT)
+                    .status(HttpStatus.BAD_REQUEST)
                     .body(new ResponseDTO(null, "Cannot find user in database"));
         }else {
 
