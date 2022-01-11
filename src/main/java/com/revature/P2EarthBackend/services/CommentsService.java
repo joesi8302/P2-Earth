@@ -32,10 +32,9 @@ public class CommentsService {
         this.commentsDao = commentsDao;
     }
 
-
     public List<Comments> getAllComments(){
 
-        List<Comments> commentsList=this.commentsDao.findAll();
+        List<Comments> commentsList = this.commentsDao.findAll();
 
         if (commentsList == null) return null;
 

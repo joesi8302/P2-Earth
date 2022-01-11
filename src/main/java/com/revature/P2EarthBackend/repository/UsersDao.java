@@ -24,4 +24,7 @@ public interface UsersDao extends JpaRepository<Users, Integer> {
 
     @Query("from Users where username != :original AND username = :username")
     Users findAllUsersBySpecificUsername(@Param("original") String original, @Param("username") String username);
+
+    @Query("from Users where user_email != :original AND user_email = :email")
+    Users findAllUsersBySpecificEmail(@Param("original") String original, @Param("email") String username);
 }

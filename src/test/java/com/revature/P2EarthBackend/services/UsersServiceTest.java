@@ -7,7 +7,6 @@ import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -61,7 +60,7 @@ class UsersServiceTest {
         usersList.add(user2);
         usersList.add(user3);
 
-        Mockito.when(this.usersDao.getById(user1.getUser_id())).thenReturn(user1);
+        Mockito.when(this.usersDao.getById(user1.getUserId())).thenReturn(user1);
 
         //act
         Users actualResult=this.usersService.getOneUser(1);

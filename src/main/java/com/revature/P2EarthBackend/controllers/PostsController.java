@@ -1,12 +1,9 @@
 package com.revature.P2EarthBackend.controllers;
 
 
-import com.revature.P2EarthBackend.models.LoginDTO;
 import com.revature.P2EarthBackend.models.Posts;
 import com.revature.P2EarthBackend.models.ResponseDTO;
 import com.revature.P2EarthBackend.models.Users;
-import com.revature.P2EarthBackend.repository.PostsDao;
-import com.revature.P2EarthBackend.repository.UsersDao;
 import com.revature.P2EarthBackend.services.PostsService;
 import com.revature.P2EarthBackend.services.UploadService;
 import com.revature.P2EarthBackend.services.UsersService;
@@ -18,11 +15,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "posts")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 public class PostsController {
 
     private PostsService postsService;
@@ -105,7 +102,10 @@ public class PostsController {
     //get all the posts by user_id
     // TODO: 1/2/2022 need to add a check , if returns null
     @GetMapping("user/{user_id}")
-    ResponseEntity<ResponseDTO> getAllUserPosts(@PathVariable Integer user_id){
+    ResponseEntity<ResponseDTO> getAllUserPosts(@PathVariable String username){
+
+        Users user = usersService.getOneUserByUsername(username);
+        Integer user_id = user.getUserId();
 
         List<Posts> posts = postsService.getAllUserPosts(Long.valueOf(user_id));
 
@@ -126,7 +126,7 @@ public class PostsController {
 
 //deleted post_id parameter , it should autogenerate and autoencrement
     @PostMapping
-    public ResponseEntity<ResponseDTO> createPost( @RequestParam MultipartFile postImg, @RequestParam String description, HttpSession httpSession) throws IOException {
+    public ResponseEntity<ResponseDTO> createPost(@RequestParam MultipartFile postImg, @RequestParam String description, HttpSession httpSession) throws IOException {
 
         String post_description = description;
         String post_img = null;
@@ -145,31 +145,12 @@ public class PostsController {
             return responseEntity;
         }
 
-        String url = uploadService.uploadFile(postImg, objPost.getUser().getUsername() + objPost.getPost_id());
+        String url = uploadService.uploadMultiFile(postImg, objPost.getUser().getUsername() + objPost.getPost_id());
 
         Posts updatedPost = postsService.updatePostImg(objPost.getPost_id(), url);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(new ResponseDTO(objPost.toString(), "Successfully created post"));
-}
-
-
-    /*// TODO: 1/2/2022  //delete a post , need to add some checks , everyone can only delete their own posts , //not required
-    //  so we have to check the if( userid in session ==userid in post)
-    @DeleteMapping("delete/{post_id}")
-    public ResponseEntity<ResponseDTO> deletePost(@PathVariable Long post_id){
-
-        Posts post=this.postsService.getOnePost(post_id);
-
-        ResponseEntity<ResponseDTO> responseEntity;
-
-        this.postsService.deletePost(post);
-
-        responseEntity = ResponseEntity
-                .status(HttpStatus.OK)
-                .body(new ResponseDTO(null, "Successfully deleted post with id: " + post_id));
-    return responseEntity;
-
-    }*/
+    }
 
 }

@@ -78,10 +78,10 @@ class PostsServiceTest {
         expectedResult.add(post4);
         expectedResult.add(post5);
 
-        Mockito.when(this.postsDao.findAllByUserId(Long.valueOf(user1.getUser_id()))).thenReturn(expectedResult);
+        Mockito.when(this.postsDao.findAllByUserId(Long.valueOf(user1.getUserId()))).thenReturn(expectedResult);
 
         //act
-        List<Posts> actualResult =this.postsService.getAllUserPosts(Long.valueOf(user1.getUser_id()));
+        List<Posts> actualResult =this.postsService.getAllUserPosts(Long.valueOf(user1.getUserId()));
 
         //assert
         assertEquals(actualResult,expectedResult);

@@ -38,8 +38,8 @@ public class SessionController {
                     .status(HttpStatus.BAD_REQUEST)
                     .body(new ResponseDTO(null, "Invalid username or password"));
 
-        httpSession.setAttribute("user-session", user.getUser_id());
-        return ResponseEntity.ok(new ResponseDTO(new LoginDTO(user.getUser_id(), user.getUsername()), "login successful"));
+        httpSession.setAttribute("user-session", user.getUserId());
+        return ResponseEntity.ok(new ResponseDTO(new LoginDTO(user.getUserId(), user.getUsername()), "login successful"));
     }
 
     //delete session
@@ -68,7 +68,7 @@ public class SessionController {
                     .body(new ResponseDTO(null, "no session found"));
         System.out.println();
 
-        return ResponseEntity.ok(new ResponseDTO(new LoginDTO(users.getUser_id(), users.getUsername()), "session found"));
+        return ResponseEntity.ok(new ResponseDTO(new LoginDTO(users.getUserId(), users.getUsername()), "session found"));
 
     }
 }

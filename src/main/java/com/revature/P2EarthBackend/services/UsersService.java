@@ -51,7 +51,7 @@ public class UsersService {
     public Users getOneUser(Integer user_id){
         Users user = this.usersDao.getById(user_id);
 
-        if (user.getUser_id() == null) return null;
+        if (user.getUserId() == null) return null;
 
         logger.info("get one user " +user);
 
@@ -61,7 +61,7 @@ public class UsersService {
     public Users getOneUserByUsername(String username){
         Users user = this.usersDao.findAllUsersbyUsername(username);
 
-        if (user.getUser_id() == null) return null;
+        if (user.getUserId() == null) return null;
 
         return user;
     }
@@ -95,16 +95,12 @@ public class UsersService {
         return user;
     }
 
-    public void deleteUser(Integer user_id){
-         usersDao.deleteById(user_id);
-    }
-
     public Users loginUser(LoginInfo loginInfo) {
 
         Users checkuser = usersDao.findAllUsersbyUsername(loginInfo.getUsername());
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
 
-        boolean passCheck = passwordEncryptor.checkPassword(loginInfo.getPassword(), checkuser.getPassword());
+
 
         logger.info("user login"+loginInfo);
 
@@ -112,6 +108,9 @@ public class UsersService {
         if(checkuser == null){
             return null;
         }else{
+
+            boolean passCheck = passwordEncryptor.checkPassword(loginInfo.getPassword(), checkuser.getPassword());
+
             if(passCheck){
                 return checkuser;
 
@@ -125,27 +124,35 @@ public class UsersService {
 
     public Users updateUser(Users user, MultipartFile user_img) throws IOException {
 
-        Users checkuser = usersDao.findById(user.getUser_id()).orElse(null);
+        Users checkuser = usersDao.findById(user.getUserId()).orElse(null);
 
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
         System.out.println("Update User Ran");
 
-        if(checkuser.getUser_id() == null){
+        if(checkuser.getUserId() == null){
             System.out.println("DEBUG: user: " + user);
             return null;
-        }else{
-            //todo if username is still the same when updating, it causes issues
+        }else {
+
             if (usersDao.findAllUsersBySpecificUsername(checkuser.getUsername(),user.getUsername()) != null) {
                 System.out.println("Username error");
-                return null;
+                checkuser.setUser_img("-1");
+                return checkuser;
             }
+
+            if (usersDao.findAllUsersBySpecificEmail(checkuser.getUser_email(), user.getUser_email()) != null) {
+                logger.info("Email is already registered");
+                checkuser.setUser_img("-2");
+                return checkuser;
+            }
+
             System.out.println("Update User Ran");
             //upload new photo to S3 and store it to database
             String encryptedPassword = passwordEncryptor.encryptPassword(user.getPassword()); //encrypting the password
-            user.setUser_id(checkuser.getUser_id());
+            user.setUserId(checkuser.getUserId());
             user.setPassword(encryptedPassword); //setting the new encrypted password in the object
 
-            String url = uploadService.uploadFile(user_img, user.getUsername() + "ProfileImg");
+            String url = uploadService.uploadMultiFile(user_img, user.getUsername() + "ProfileImg");
             user.setUser_img(url);
 
             System.out.println("DEBUG: user: " + user);
@@ -159,10 +166,8 @@ public class UsersService {
     }
 
     public Users resetPassword(String email) {
-
+        System.out.println("FROM FRONT END: " + email);
         Users checkuser = usersDao.findAllUsersbyEmail(email);
-        System.out.println("SENT USER:"+ checkuser);
-        System.out.println(checkuser.getUser_email());
 
         if(checkuser.getUser_email() == null){
             return null;
@@ -177,6 +182,15 @@ public class UsersService {
         logger.info("reset password by email" + email);
 
         return checkuser;
+    }
+
+    public Boolean isEmailUnique (String email) {
+
+        Users users = usersDao.findAllUsersbyEmail(email);
+
+        if (users != null) return false;
+
+        return true;
     }
 
 }

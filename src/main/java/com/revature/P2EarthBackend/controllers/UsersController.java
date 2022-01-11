@@ -13,13 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "users")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 public class UsersController {
 
     private UsersService usersService;
@@ -93,11 +92,17 @@ public class UsersController {
                     .body(new ResponseDTO(null, "This username already exists please try a different one"));
         }
 
+        if (!usersService.isEmailUnique(user_email)) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new ResponseDTO(null, "This email is already registered"));
+        }
+
         //returns ok status code with user id and username passed back
-        String url = uploadService.uploadFile(user_img, username + "ProfileImg");
+        String url = uploadService.uploadMultiFile(user_img, username + "ProfileImg");
         userInput.setUser_img(url);
         Users user = this.usersService.createUser(userInput);
-        return ResponseEntity.ok(new ResponseDTO(new LoginDTO(user.getUser_id(), user.getUsername()), "User created"));
+        return ResponseEntity.ok(new ResponseDTO(new LoginDTO(user.getUserId(), user.getUsername()), "User created"));
 
     }
 // I droped the user_id parameter here , I think when we create the user we dont need to provide the id , it should autoincreate and autogenerate ,
@@ -118,10 +123,21 @@ public class UsersController {
         Users userfromDB = this.usersService.updateUser(user, user_img);
 
         if (userfromDB == null) {
-
             return ResponseEntity.
-                    status(HttpStatus.NO_CONTENT)
+                    status(HttpStatus.BAD_REQUEST)
                     .body(new ResponseDTO(null, "Cannot find user in database"));
+        }
+
+        if (userfromDB.getUser_img().equals("-1")) {
+            return ResponseEntity.
+                    status(HttpStatus.BAD_REQUEST)
+                    .body(new ResponseDTO(null, "Username is already taken"));
+        }
+
+        if (userfromDB.getUser_img().equals("-2")) {
+            return ResponseEntity.
+                    status(HttpStatus.BAD_REQUEST)
+                    .body(new ResponseDTO(null, "Email is already registered"));
         }
 
         return ResponseEntity
@@ -134,11 +150,14 @@ public class UsersController {
     @PutMapping("reset")
     public ResponseEntity<ResponseDTO> resetPassword(@RequestParam String email){
         ResponseEntity<ResponseDTO> responseEntity;
-        Users userfromDB = this.usersService.resetPassword(email);
+        Integer length = email.length();
+        String newEmail = email.substring(1,length-1);
+        System.out.println(newEmail);
+        Users userfromDB = this.usersService.resetPassword(newEmail);
 
         if (userfromDB == null) {
             responseEntity = ResponseEntity
-                    .status(HttpStatus.NO_CONTENT)
+                    .status(HttpStatus.BAD_REQUEST)
                     .body(new ResponseDTO(null, "Cannot find user in database"));
         }else {
 

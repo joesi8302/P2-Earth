@@ -2,7 +2,6 @@ package com.revature.P2EarthBackend.models;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -53,7 +52,7 @@ public class Comments {
     public String toString() {
         return "Comments{" +
                 "comment_id=" + comment_id +
-                ", user=" + user.getUser_id() +
+                ", user=" + user.getUserId() +
                 ", post=" + post.getPost_id() +
                 ", comment_created=" + comment_created +
                 ", comment_description='" + comment_description + '\'' +
