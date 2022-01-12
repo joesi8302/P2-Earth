@@ -22,13 +22,13 @@ class PostsDaoTestIT {
     void findAllByUserId() {
         //arrange
         Users user1 = new Users("archer01","123456","Sterling","Archer","","archer01@email.com");
-        Users user2 =usersDao.save(user1);
+        Users user2 = usersDao.save(user1);
 
 
 
         //act
-        Posts expectedResult =new Posts("post_description","post_img",user2);
-        Posts actualResult =postsDao.save(expectedResult);
+        Posts expectedResult = new Posts("post_description","post_img",user2);
+        Posts actualResult = postsDao.save(expectedResult);
 
         //assert
         assertEquals(expectedResult,actualResult);
@@ -38,17 +38,17 @@ class PostsDaoTestIT {
     void findAllByPostId() {
         //arrange
         Users user1 = new Users(1,"archer01","123456","Sterling","Archer","","archer01@email.com");
-        Users user2=usersDao.save(user1);
-        Posts post1 =new Posts("post_description1","post_img1",user2);
-        Posts post2 =new Posts("post_description2","post_img2",user2);
-        Posts postFromDB1 =postsDao.save(post1);
-        Posts postFromDB2 =postsDao.save(post2);
+        usersDao.save(user1);
+        Posts post1 = new Posts("post_description1","post_img1",user1);
+        Posts post2 = new Posts("post_description2","post_img2",user1);
+        Posts postFromDB1 = postsDao.save(post1);
+        Posts postFromDB2 = postsDao.save(post2);
 
 
         //act
 
-        Posts actualResult=postsDao.findAllByPostId(post1.getPost_id());
-        Posts expectedResult=post1;
+        Posts actualResult = postsDao.findAllByPostId(post1.getPost_id());
+        Posts expectedResult = post1;
 
 
         //assert
