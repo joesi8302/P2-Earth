@@ -142,7 +142,7 @@ public class UsersController {
 
         return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(new ResponseDTO(userfromDB, "Returned user from database"));
+                    .body(new ResponseDTO(userfromDB, "Updated User"));
 
     }
 
