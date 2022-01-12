@@ -132,12 +132,20 @@ public class UsersService {
         if(checkuser.getUserId() == null){
             System.out.println("DEBUG: user: " + user);
             return null;
-        }else{
-            //todo if username is still the same when updating, it causes issues
+        }else {
+
             if (usersDao.findAllUsersBySpecificUsername(checkuser.getUsername(),user.getUsername()) != null) {
                 System.out.println("Username error");
-                return null;
+                checkuser.setUser_img("-1");
+                return checkuser;
             }
+
+            if (usersDao.findAllUsersBySpecificEmail(checkuser.getUser_email(), user.getUser_email()) != null) {
+                logger.info("Email is already registered");
+                checkuser.setUser_img("-2");
+                return checkuser;
+            }
+
             System.out.println("Update User Ran");
             //upload new photo to S3 and store it to database
             String encryptedPassword = passwordEncryptor.encryptPassword(user.getPassword()); //encrypting the password
@@ -161,8 +169,6 @@ public class UsersService {
         System.out.println("FROM FRONT END: " + email);
         Users checkuser = usersDao.findAllUsersbyEmail(email);
 
-        //todo: check if multiple users are using the same email
-
         if(checkuser.getUser_email() == null){
             return null;
         }else{
@@ -185,7 +191,6 @@ public class UsersService {
         if (users != null) return false;
 
         return true;
-
     }
 
 }
