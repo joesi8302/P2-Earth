@@ -48,6 +48,13 @@ public class UsersService {
         return usersList;
     }
 
+    /**
+     * Returns a Users Object that can be then used.
+     * If no user has specified ID then will return null.
+     *
+     * @param user_id   the ID of the user you want to receive from the Database
+     * @return          the user with the specified ID or null
+     */
     public Users getOneUser(Integer user_id){
         Users user = this.usersDao.getById(user_id);
 
@@ -58,6 +65,13 @@ public class UsersService {
         return user;
     }
 
+    /**
+     * Method used for checking the users Object that is received from the database.
+     * If there is no user Object with specified username. The method will return null
+     *
+     * @param username  the username of the user you want to receive from the database
+     * @return          the user with the specified username or null
+     */
     public Users getOneUserByUsername(String username){
         Users user = this.usersDao.findAllUsersbyUsername(username);
 
@@ -66,6 +80,14 @@ public class UsersService {
         return user;
     }
 
+
+    /**
+     * Method for creating a user to be saved onto the database.
+     * If username or email is already in use, the method will return null.
+     *
+     * @param user  a user Object you would like to create and save onto the database
+     * @return      the user created or null
+     */
     public Users createUser(Users user){
 
         Users user1 = usersDao.findAllUsersbyUsername(user.getUsername());
@@ -87,6 +109,14 @@ public class UsersService {
         }
     }
 
+    /**
+     * Method used to verify if a username is currently being used within the database.
+     * If used, then will return that user.
+     * If not in use, then will return null.
+     *
+     * @param username  the username you would like to verify within the database
+     * @return          the user Object with the specified username
+     */
     public Users validateUserByUsername(String username){
         Users user = usersDao.findAllUsersbyUsername(username);
 
@@ -95,15 +125,19 @@ public class UsersService {
         return user;
     }
 
+    /**
+     * Method used verify login credentials.
+     * Will decode password and verify if credentials match.
+     *
+     * @param loginInfo an Object that contains the user's login credentials
+     * @return          the user with the specified loginInfo/Credentials
+     */
     public Users loginUser(LoginInfo loginInfo) {
 
         Users checkuser = usersDao.findAllUsersbyUsername(loginInfo.getUsername());
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
 
-
-
         logger.info("user login"+loginInfo);
-
 
         if(checkuser == null){
             return null;
@@ -122,6 +156,16 @@ public class UsersService {
 
     }
 
+    /**
+     * Returns an updated users Object that will be adjusted within the database
+     * If username or email is already in use by another user, will return users Object
+     * with userId of -1 or -2
+     *
+     * @param user          specified user Object with changed information
+     * @param user_img      specified user_Img to be displayed on user account
+     * @return              the users Object with adjusted information or users Object with userId of -1 or -2
+     * @throws IOException  for the upload service method
+     */
     public Users updateUser(Users user, MultipartFile user_img) throws IOException {
 
         Users checkuser = usersDao.findById(user.getUserId()).orElse(null);
@@ -165,6 +209,13 @@ public class UsersService {
 
     }
 
+    /**
+     * Returns the users Object with specified email attached to it.
+     * If no user has specified email, will return null.
+     *
+     * @param email email string to search for specified user within database
+     * @return      users Object with the specified email or null
+     */
     public Users resetPassword(String email) {
         System.out.println("FROM FRONT END: " + email);
         Users checkuser = usersDao.findAllUsersbyEmail(email);
@@ -184,6 +235,14 @@ public class UsersService {
         return checkuser;
     }
 
+    /**
+     * Returns boolean value if email is within.
+     * Will return true if email passed is unique within the database
+     * Will return false if email passed is not unique within the database
+     *
+     * @param email email string to verify within the database
+     * @return      true or false
+     */
     public Boolean isEmailUnique (String email) {
 
         Users users = usersDao.findAllUsersbyEmail(email);

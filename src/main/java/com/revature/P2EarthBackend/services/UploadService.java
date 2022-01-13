@@ -45,6 +45,14 @@ public class UploadService {
         return url;
     }
 
+    /**
+     * Returns url string to display image that is stored onto the S3 Server
+     *
+     * @param file          MultipartFile Object which will be the image saved onto the S3 server
+     * @param name          string to rename file when uploading to S3 server
+     * @return              url for the image stored onto S3
+     * @throws IOException  for the s3Client Object
+     */
     public String uploadMultiFile(MultipartFile file, String name) throws IOException {
         //bucket location, URI for the file in the location, file to send
 
