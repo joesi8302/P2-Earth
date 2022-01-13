@@ -37,6 +37,10 @@ public class UsersController {
     }
 
 
+    /**
+     *
+     * @return
+     */
     @GetMapping
     public ResponseEntity<ResponseDTO> getUsers(){
         List<Users> usersList = usersService.getAllUsers();
