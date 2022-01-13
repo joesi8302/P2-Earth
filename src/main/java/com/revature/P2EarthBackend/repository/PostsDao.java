@@ -12,8 +12,8 @@ import java.util.List;
 
 public interface PostsDao extends JpaRepository<Posts, Integer> {
 
-    @Query("from Posts where user_user_id = :user_user_id")
-    List<Posts> findAllByUserId(@Param("user_user_id") Long user_id);
+    @Query("from Posts where user_userId = :user_userId")
+    List<Posts> findAllByUserId(@Param("user_userId") Long userId);
 
 
     @Query("from Posts where post_id= :post_id")

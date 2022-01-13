@@ -18,12 +18,12 @@ import java.util.List;
 @Entity
 @Table(name = "posts")
 public class Posts {
-    public Posts(String post_description,String post_img,Users user){
+    public Posts(String post_description, String post_img, Users user){
 
-        this.post_created =new Timestamp(System.currentTimeMillis());
-        this.post_description=post_description;
-        this.post_img=post_img;
-        this.user=user;
+        this.post_created = new Timestamp(System.currentTimeMillis());
+        this.post_description = post_description;
+        this.post_img = post_img;
+        this.user = user;
 
     }
 
@@ -49,7 +49,7 @@ public class Posts {
 
     @JsonIgnore
     @OneToMany(mappedBy = "post",cascade = CascadeType.REMOVE)
-    private List<Comments> comments=new ArrayList<>();
+    private List<Comments> comments = new ArrayList<>();
 
     public Long getPost_id() {
         return post_id;
