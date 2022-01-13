@@ -96,7 +96,17 @@ class UsersServiceTest {
 
     @Test
     void validateUserByUsername() {
+
+        //arrange
+        Users user1 =new Users(1,"archer01",
+                "123456","Archer","Sterling","","archer01@email.com",null,null);
+
+
+
+
     }
+
+
 
     @Test
     void deleteUser() {
