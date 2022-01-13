@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping(value = "session")
-@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
+@CrossOrigin(origins = "http://18.220.138.34:4200", allowCredentials = "true")
 @Data
 public class SessionController {
 
