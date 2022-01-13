@@ -1,6 +1,7 @@
 package com.revature.P2EarthBackend.models;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -32,6 +33,7 @@ public class Posts {
     @Column
     private Long post_id;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm a z")
     @Column
     private Timestamp post_created;
 
