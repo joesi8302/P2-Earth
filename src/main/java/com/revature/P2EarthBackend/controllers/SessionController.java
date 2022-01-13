@@ -53,8 +53,8 @@ public class SessionController {
 
     /**
      * Returns ResponseEntity Object with a message saying the session was logged out
-     * @param httpSession
-     * @return
+     * @param httpSession  the session variable created
+     * @return             the ResponseEntity Object with a message saying the session was logged out
      */
     //delete session
     @DeleteMapping
@@ -64,6 +64,12 @@ public class SessionController {
         return ResponseEntity.ok(new ResponseDTO(null, "session logged out"));
     }
 
+    /**
+     * Returns ResponseEntity Object with a message: "no session found" or "session found" with user in session
+     *
+     * @param httpSession   the session variable created
+     * @return              the ResponseEntity Object with a message: "no session found" or "session found" with user in session
+     */
     //check session
     @GetMapping
     public ResponseEntity<ResponseDTO> checkUserSession(HttpSession httpSession){

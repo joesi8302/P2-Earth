@@ -38,8 +38,9 @@ public class UsersController {
 
 
     /**
+     * Returns ResponseEntity with message: "Got all users" and list of Users Objects.
      *
-     * @return
+     * @return the ResponseEntity Object with message: "Got all users" and list of Users Objects
      */
     @GetMapping
     public ResponseEntity<ResponseDTO> getUsers(){
@@ -57,6 +58,12 @@ public class UsersController {
 
     }
 
+    /**
+     * Returns ResponseEntity with message: "Returned User" and list of Users Objects or null.
+     *
+     * @param username  the username of the user you would like to receive
+     * @return          the ResponseEntity with message: "Returned User" and list of Users Objects or null
+     */
     @GetMapping("{username}")
     public ResponseEntity<ResponseDTO> getOneUser(@PathVariable String username){
         Users user = usersService.getOneUserByUsername(username);
@@ -76,6 +83,21 @@ public class UsersController {
 
     // I droped the user_id parameter here , I think when we create the user we dont need to provide the id , it should autoincreate and autogenerate ,
 // other wise we have to memeorize the user id number, if we use the same id number ,it will replace the user with the same user id
+
+    /**
+     * Returns ResponseEntity Object of the created user and message: "User created".
+     * If username is already taken, then message will be: "This username already exists please try a different one".
+     * If email is already taken, then message will be: "This email is already registered".
+     *
+     * @param username          the username for the new user
+     * @param password          the password for the new user
+     * @param user_first_name   the first name of the new user
+     * @param user_last_name    the last name of the new user
+     * @param user_img          the profile image to show on the user account page
+     * @param user_email        the email of the new user
+     * @return                  the ResponseEntity Object of the created user and message: "User created"
+     * @throws IOException      for the upload image function
+     */
     @PostMapping
     public ResponseEntity<ResponseDTO> createUser(
                                                   @RequestParam String username,
@@ -111,6 +133,23 @@ public class UsersController {
     }
 // I droped the user_id parameter here , I think when we create the user we dont need to provide the id , it should autoincreate and autogenerate ,
 // other wise we have to memeorize the user id number, if we use the same id number ,it will replace the user with the same user id
+
+    /**
+     * Returns ResponseEntity Object of the updated user and message: "Updated user".
+     * If username is already taken, then message will be: "Username is already taken".
+     * If email is already taken, then message will be: "This email is already registered".
+     *
+     * @param id                the id of the user you would like to update
+     * @param username          the new username of the user
+     * @param password          the new password of the user
+     * @param user_first_name   the new first name of the user
+     * @param user_last_name    the new last name of the user
+     * @param user_img          the new profile image of the user
+     * @param user_email        the new email of the user
+     * @return                  the ResponseEntity Object of the updated user and message: "Updated user"
+     * @throws IOException      for the upload image function
+     */
+
     @PutMapping
     public ResponseEntity<ResponseDTO> updateUser(
                                      @RequestParam Integer id,
@@ -151,6 +190,14 @@ public class UsersController {
     }
 
     //forgot password
+
+    /**
+     * Returns ResponseEntity Object with the user of the specified email and message: "Email has been sent".
+     * If the email was not found then will send message: "Cannot find user in database"
+     *
+     * @param email the email of the user you want to reset the password to
+     * @return      the ResponseEntity Object with the user of the specified email and message: "Email has been sent".
+     */
     @PutMapping("reset")
     public ResponseEntity<ResponseDTO> resetPassword(@RequestParam String email){
         ResponseEntity<ResponseDTO> responseEntity;
