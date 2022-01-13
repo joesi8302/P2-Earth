@@ -19,7 +19,7 @@ class UsersDaoTestIT {
     void findAllUsersbyUsername() {
 
         //arrange
-        Users expectedResult = new Users(1,"archer01","123456","Sterling","Archer","","archer01@email.com");
+        Users expectedResult = new Users(3,"archer01","123456","Sterling","Archer","","archer01@email.com");
         usersDao.save(expectedResult);
 
 
@@ -47,7 +47,7 @@ class UsersDaoTestIT {
     @Test
     void findAllUsersBySpecificUsername() {
         //arrange
-        Users expectedResult = new Users(1,"archer01","123456","Sterling","Archer","","archer01@email.com");
+        Users expectedResult = new Users(2,"archer01","123456","Sterling","Archer","","archer01@email.com");
         usersDao.save(expectedResult);
 
 
