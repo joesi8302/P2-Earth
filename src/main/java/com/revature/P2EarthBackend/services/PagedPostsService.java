@@ -27,6 +27,14 @@ public class PagedPostsService {
         this.usersDao = usersDao;
     }
 
+    /**
+     * Returns a list of Posts Objects given page Number
+     * If postList is null then return null
+     * Will return all posts in separated in pages
+     *
+     * @param pageNo the page number you would like to access
+     * @return a list of Posts Objects from specified page Number
+     */
     public List<Posts> getAllPagedPosts(Integer pageNo){
 
         Pageable paging = PageRequest.of(pageNo, 20);
@@ -37,7 +45,16 @@ public class PagedPostsService {
 
         return postsList.toList();
     }
-public List<Posts> getAllPagedPostsByUserId(Integer pageNo,Integer user_id){
+
+    /**
+     * Returns a list of Posts Objects given page number and userId.
+     * Will return all posts that a specific user has created and is separated between pages.
+     *
+     * @param pageNo  the page number you would like to access
+     * @param user_id the id of the user you would like to access
+     * @return a list of Posts Objects from specified page Number and userId
+     */
+    public List<Posts> getAllPagedPostsByUserId(Integer pageNo,Integer user_id){
 
     Pageable paging = PageRequest.of(pageNo, 20);
 

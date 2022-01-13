@@ -26,7 +26,7 @@ public class PostsService {
 
 
     /**
-     * Returns a list of posts Objects containing all posts from database
+     * Returns a list of posts Objects containing all posts from database.
      * If size of posts is zero, will return null.
      *
      * @return a list of posts Objects or null
@@ -43,8 +43,8 @@ public class PostsService {
     }
 
     /**
-     * Return a list of Posts Objects containing all posts from specified user in database
-     * If list has a size of zero, will return null
+     * Return a list of Posts Objects containing all posts from specified user in database.
+     * If list has a size of zero, will return null.
      *
      * @param userId    the userId specifying which post is owned to this specific user
      * @return          a list of Posts Objects owned by the specified userId
@@ -61,8 +61,8 @@ public class PostsService {
     }
 
     /**
-     * Returns specific post based on passed id
-     * Will return null if there is no such post with specified id
+     * Returns specific post based on passed id.
+     * Will return null if there is no such post with specified id.
      *
      * @param post_id   the id of the post within the database
      * @return          the Posts Object with the specified id
@@ -79,8 +79,8 @@ public class PostsService {
     }
 
     /**
-     * Returns post created from the Posts Object specified
-     * If post failed to be created, will return null
+     * Returns post created from the Posts Object specified.
+     * If post failed to be created, will return null.
      *
      * @param post  a Posts Object passed to save onto database
      * @return      a Posts Object that was saved onto database from specified Posts Object
@@ -102,7 +102,7 @@ public class PostsService {
     }
 
     /**
-     * Returns updated Posts Object with new Image url
+     * Returns updated Posts Object with new Image url.
      *
      * @param postId    the id of the post within the database
      * @param url       the new url to be updated within the post

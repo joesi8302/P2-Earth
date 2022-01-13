@@ -46,7 +46,7 @@ public class UploadService {
     }
 
     /**
-     * Returns url string to display image that is stored onto the S3 Server
+     * Returns url string to display image that is stored onto the S3 Server.
      *
      * @param file          MultipartFile Object which will be the image saved onto the S3 server
      * @param name          string to rename file when uploading to S3 server

@@ -17,6 +17,12 @@ public class EmailService {
         @Autowired
         private JavaMailSender mailSender;
 
+        /**
+         * Will not return any Object or variable.
+         * Sends email with the specified email passed through the parameter.
+         *
+         * @param user_email the email you want to use to send the password reset email to
+         */
         public void sendEmail(String user_email) {
 
                 String from = "planet.earth.reset@gmail.com";

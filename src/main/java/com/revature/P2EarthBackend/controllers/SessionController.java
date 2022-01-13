@@ -28,6 +28,15 @@ public class SessionController {
         this.usersService = usersService;
     }
 
+    /**
+     * Returns ResponseEntity Object with the session created and the login info used.
+     * If was given invalid login info, will return message: "Invalid username or password".
+     * If was given valid login info, will return message: "login successful".
+     *
+     * @param httpSession the session variable created
+     * @param loginInfo   the login info used to sign in to the user account
+     * @return            the ResponseEntity Object with the session created and the login info used.
+     */
     //create session
     @PostMapping
     public ResponseEntity<ResponseDTO> createSession(HttpSession httpSession, @RequestBody LoginInfo loginInfo){
@@ -42,6 +51,11 @@ public class SessionController {
         return ResponseEntity.ok(new ResponseDTO(new LoginDTO(user.getUserId(), user.getUsername()), "login successful"));
     }
 
+    /**
+     * Returns ResponseEntity Object with a message saying the session was logged out
+     * @param httpSession
+     * @return
+     */
     //delete session
     @DeleteMapping
     public ResponseEntity<ResponseDTO> deleteSession(HttpSession httpSession){

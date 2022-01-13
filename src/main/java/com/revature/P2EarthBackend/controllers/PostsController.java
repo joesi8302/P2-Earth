@@ -124,6 +124,18 @@ public class PostsController {
                 .body(new ResponseDTO(posts, "Successfully got all posts from user id: " + user_id));
     }
 
+
+    /**
+     * Returns ResponseEntity Object with post created and status message.
+     * If post failed to be created will send "Failed to create post".
+     * If post was created and saved, will send "Successfully created post".
+     *
+     * @param postImg       the image that will be displayed on the user's posts
+     * @param description   the description of the post
+     * @param httpSession   the session to determine which user is creating the post
+     * @return              the ResponseEntity Object with post created and status message.
+     * @throws IOException  exception for the upload Image
+     */
 //deleted post_id parameter , it should autogenerate and autoencrement
     @PostMapping
     public ResponseEntity<ResponseDTO> createPost(@RequestParam MultipartFile postImg, @RequestParam String description, HttpSession httpSession) throws IOException {

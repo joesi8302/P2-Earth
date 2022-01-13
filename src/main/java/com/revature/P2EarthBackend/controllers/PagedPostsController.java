@@ -31,6 +31,15 @@ public class PagedPostsController {
 
     }
 
+    /**
+     * Returns a ResponseEntity Object to send to FrontEnd.
+     * Will give a page Number to be sent to the service layer for a list to be sent back.
+     * If the list is null, then will return with message "Cannot fetch paged posts".
+     * If the list is not null, then will return list with message "Successfully retrieved all paged posts"
+     *
+     * @param pageNo    the page number of the posts you would like to see
+     * @return          the ResponseEntity with set message and/or list of Posts Objects
+     */
     @GetMapping("/{pageNo}")
     public ResponseEntity<ResponseDTO> getAllPagedPosts(@PathVariable int pageNo) {
         List<Posts> listfromDB = pagedPostsService.getAllPagedPosts(pageNo);
@@ -46,6 +55,16 @@ public class PagedPostsController {
                 .body(new ResponseDTO(listfromDB, "Successfully retrieved all paged posts"));
     }
 
+    /**
+     * Returns a ResponseEntity Object with a list of Posts Objects and message to send to FrontEnd.
+     * Will give a page Number and userID to be sent to the service layer for a list to be sent back.
+     * If the list is null, then will return with message "Cannot fetch paged posts".
+     * If the list is not null, then will return list with message "Successfully retrieved all paged posts".
+     *
+     * @param pageNo    the page number of the posts you would like to see
+     * @param user_id   the user's id to determine which posts you would like to receive
+     * @return          the ResponseEntity with set message and/or list of Posts Objects by specified parameters
+     */
     @GetMapping("/{pageNo}/{user_id}")
     public ResponseEntity<ResponseDTO> getAllPagedPostsByUserId(@PathVariable Integer pageNo,@PathVariable Integer user_id){
 

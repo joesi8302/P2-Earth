@@ -67,7 +67,7 @@ public class UsersService {
 
     /**
      * Method used for checking the users Object that is received from the database.
-     * If there is no user Object with specified username. The method will return null
+     * If there is no user Object with specified username. The method will return null.
      *
      * @param username  the username of the user you want to receive from the database
      * @return          the user with the specified username or null
@@ -157,9 +157,9 @@ public class UsersService {
     }
 
     /**
-     * Returns an updated users Object that will be adjusted within the database
-     * If username or email is already in use by another user, will return users Object
-     * with userId of -1 or -2
+     * Returns an updated users Object that will be adjusted within the database.
+     * If username or email is already in use by another user, will return users Object.
+     * with userId of -1 or -2.
      *
      * @param user          specified user Object with changed information
      * @param user_img      specified user_Img to be displayed on user account
@@ -237,8 +237,8 @@ public class UsersService {
 
     /**
      * Returns boolean value if email is within.
-     * Will return true if email passed is unique within the database
-     * Will return false if email passed is not unique within the database
+     * Will return true if email passed is unique within the database.
+     * Will return false if email passed is not unique within the database.
      *
      * @param email email string to verify within the database
      * @return      true or false
