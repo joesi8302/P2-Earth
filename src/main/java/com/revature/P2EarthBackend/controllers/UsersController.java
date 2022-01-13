@@ -37,6 +37,10 @@ public class UsersController {
     }
 
 
+    /**
+     *
+     * @return
+     */
     @GetMapping
     public ResponseEntity<ResponseDTO> getUsers(){
         List<Users> usersList = usersService.getAllUsers();
@@ -142,7 +146,7 @@ public class UsersController {
 
         return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(new ResponseDTO(userfromDB, "Returned user from database"));
+                    .body(new ResponseDTO(userfromDB, "Updated User"));
 
     }
 

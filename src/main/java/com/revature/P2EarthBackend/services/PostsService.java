@@ -24,6 +24,13 @@ public class PostsService {
         this.postsDao = postsDao;
     }
 
+
+    /**
+     * Returns a list of posts Objects containing all posts from database
+     * If size of posts is zero, will return null.
+     *
+     * @return a list of posts Objects or null
+     */
     public List<Posts> getAllPosts(){
 
         List<Posts> postsList = this.postsDao.findAll();
@@ -35,6 +42,13 @@ public class PostsService {
         return postsList;
     }
 
+    /**
+     * Return a list of Posts Objects containing all posts from specified user in database
+     * If list has a size of zero, will return null
+     *
+     * @param userId    the userId specifying which post is owned to this specific user
+     * @return          a list of Posts Objects owned by the specified userId
+     */
     public List<Posts> getAllUserPosts(Long userId){
 
         List<Posts> postsList = this.postsDao.findAllByUserId(userId);
@@ -46,6 +60,13 @@ public class PostsService {
         return postsList;
     }
 
+    /**
+     * Returns specific post based on passed id
+     * Will return null if there is no such post with specified id
+     *
+     * @param post_id   the id of the post within the database
+     * @return          the Posts Object with the specified id
+     */
     public Posts getOnePost(Long post_id){
         Posts post = this.postsDao.findAllByPostId(post_id);
 
@@ -57,6 +78,13 @@ public class PostsService {
 
     }
 
+    /**
+     * Returns post created from the Posts Object specified
+     * If post failed to be created, will return null
+     *
+     * @param post  a Posts Object passed to save onto database
+     * @return      a Posts Object that was saved onto database from specified Posts Object
+     */
     public Posts createPost(Posts post){
 //        Users user = usersDao.findById(user_id).orElse(null);
 
@@ -73,6 +101,13 @@ public class PostsService {
         return postFromDB;
     }
 
+    /**
+     * Returns updated Posts Object with new Image url
+     *
+     * @param postId    the id of the post within the database
+     * @param url       the new url to be updated within the post
+     * @return          the Posts updated with new picture
+     */
     public Posts updatePostImg(Long postId, String url){
         Posts post=postsDao.findAllByPostId(postId);
 //        Posts post = postsDao.findById(postId.intValue()).orElse(null);
@@ -85,11 +120,6 @@ public class PostsService {
 
         return postsDao.save(post);
 
-    }
-
-    public void deletePost(Posts post){
-
-         this.postsDao.delete(post);
     }
 
 
