@@ -224,7 +224,10 @@ public class UsersService {
             return null;
         }else{
 
-            checkuser.setPassword("P@ssW0Rd!");
+            BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
+            String encryptedPassword = passwordEncryptor.encryptPassword("P@ssW0Rd!");
+
+            checkuser.setPassword(encryptedPassword);
 
             this.usersDao.save(checkuser);
 
