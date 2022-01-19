@@ -1,4 +1,4 @@
-# P2-Earth-Backend
+# Revature Social Network Platform
 
 ## Description:
 In this social network, everyone is friends with everyone. As a user, you will be able to register and login to your account. 
