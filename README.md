@@ -45,3 +45,8 @@ When user is on account page they may post any image.
 The Selenium project will register a user and login as created user. 
 Will traverse through each page and create own post.
 Will edit user information as well.
+
+##Contributors
+https://github.com/David-Bratkov
+https://github.com/aizizifulati
+https://github.com/lionelmorgan
