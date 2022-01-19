@@ -47,6 +47,6 @@ Will traverse through each page and create own post.
 Will edit user information as well.
 
 ##Contributors
-https://github.com/David-Bratkov
-https://github.com/aizizifulati
-https://github.com/lionelmorgan
+- https://github.com/David-Bratkov
+- https://github.com/aizizifulati
+- https://github.com/lionelmorgan
